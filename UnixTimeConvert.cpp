@@ -1,4 +1,3 @@
-#include <iostream>
 #include <stdio.h>
 
 const int SYEAR = 31536000,
@@ -80,8 +79,6 @@ long toUnixTime(int year, int month, int day, int hour, int minute, int second) 
 }
 
 int main() {
-    using namespace std;
-
     printf("%04i/%02i/%02i %02i:%02i:%02i\n", getYear(1424855329), getMonth(1424855329), getDay(1424855329), getHour(1424855329), 
     	getMinute(1424855329), getSecond(1424855329));
 
