@@ -1,29 +1,35 @@
-#include "iostream"
+#include <iostream>
+
+const int SYEAR = 31536000,
+          SDAY = 86400,
+          SHOUR = 3600,
+          SMINUTE = 60,
+          YEAROFFSET = 1970;
 
 int months[] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
 
 int getYearOffset(long timestamp) {
-    return timestamp / 31536000;
+    return timestamp / SYEAR;
 }
 
 int getYear(long timestamp) {
-    return 1970 + getYearOffset(timestamp);
+    return YEAROFFSET + getYearOffset(timestamp);
 }
 
 int getDays(long timestamp) {
-    return (timestamp - 31536000 * (getYearOffset(timestamp))) / 86400;
+    return (timestamp - SYEAR * (getYearOffset(timestamp))) / SDAY;
 }
 
 int getVysDays(int year) {
     int vys = 0;
-    for (int i = 1970; i < year; i++) {
+    for (int i = YEAROFFSET; i < year; i++) {
         if ((i % 4) == 0) vys++;
     }
     return vys;
 }
 
 int getMonth(long timestamp) {
-    int days = ((timestamp - 31536000 * getYearOffset(timestamp)) / 86400) - getVysDays(getYear(timestamp));
+    int days = ((timestamp - SYEAR * getYearOffset(timestamp)) / SDAY) - getVysDays(getYear(timestamp));
 
     int month = 0;
     while (days - months[month] >= 1) {
@@ -53,15 +59,15 @@ int getDay(long timestamp) {
 }
 
 int getHour(long timestamp) {
-    return (timestamp - 31536000 * getYearOffset(timestamp) - 86400 * getDays(timestamp)) / 3600;
+    return (timestamp - SYEAR * getYearOffset(timestamp) - SDAY * getDays(timestamp)) / SHOUR;
 }
 
 int getMinute(long timestamp) {
-    return (timestamp - 31536000 * getYearOffset(timestamp) - 86400 * getDays(timestamp) - 3600 * getHour(timestamp)) / 60;
+    return (timestamp - SYEAR * getYearOffset(timestamp) - SDAY * getDays(timestamp) - SHOUR * getHour(timestamp)) / SMINUTE;
 }
 
 int getSecond(long timestamp) {
-    return (timestamp - 31536000 * getYearOffset(timestamp) - 86400 * getDays(timestamp) - 3600 * getHour(timestamp) - 60 * getMinute(timestamp));
+    return (timestamp - SYEAR * getYearOffset(timestamp) - SDAY * getDays(timestamp) - SHOUR * getHour(timestamp) - SMINUTE * getMinute(timestamp));
 }
 
 long toUnixTime(int year, int month, int day, int hour, int minute, int second) {
@@ -70,7 +76,7 @@ long toUnixTime(int year, int month, int day, int hour, int minute, int second) 
         days += months[i];
     }
 
-    return (year - 1970) * 31536000 + days * 86400 + hour * 3600 + minute * 60 + second;
+    return (year - YEAROFFSET) * SYEAR + days * SDAY + hour * SHOUR + minute * SMINUTE + second;
 }
 
 int main() {
@@ -88,7 +94,7 @@ int main() {
     cout << toUnixTime(2015, 2, 25, 11, 34, 30) << "\n";
     cout << getYear(1424864070) << "/" << getMonth(1424864070) << "/" << getDay(1424864070) << " "
          << getHour(1424864070) << ":" << getMinute(1424864070) << ":" << getSecond(1424864070) << "\n";
-    
+
     return 0;
 }
 
