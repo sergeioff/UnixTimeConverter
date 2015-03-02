@@ -1,7 +1,5 @@
-#include <stdio.h>
+#include "mytimefunctions.h"
 #include <time.h>
-
-using namespace std;
 
 int getYear(long timestamp) {
     return 1900 + localtime(&timestamp)->tm_year;
@@ -39,17 +37,3 @@ long toUnixTime(int year, int month, int day, int hours, int minutes, int second
 
     return mktime(time);
 }
-
-int main() {
-    printf("%04d/%02d/%02d %02d:%02d:%02d\n", getYear(1425111517), getMonth(1425111517), getDay(1425111517),
-           getHours(1425111517), getMinutes(1425111517), getSeconds(1425111517));
-
-    printf("%ld\n", toUnixTime(2015,2,28,10,25,30));
-
-    printf("%04d/%02d/%02d %02d:%02d:%02d\n", getYear(1425111930), getMonth(1425111930), getDay(1425111930),
-           getHours(1425111930), getMinutes(1425111930), getSeconds(1425111930));
-
-    return 0;
-}
-
-
