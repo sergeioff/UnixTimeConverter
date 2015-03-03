@@ -1,10 +1,13 @@
 #include "mytimefunctions.h"
 #include <stdio.h>
+#include <time.h>
 
 using namespace std;
 
 int main() {
-	long timestamp = 1425323785;
+	//long timestamp = 1425323785;
+	time_t timestamp;
+	time (&timestamp);
 
 	int year, month, day, hours, minutes, seconds;
 
