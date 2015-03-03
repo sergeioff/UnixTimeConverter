@@ -1,20 +1,12 @@
-all: libstatic
-	mkdir -p out
-	g++ src/main/main.cpp lib/libstatic.o -o out/main.exe
-
-clear:
-	rm -rf out lib
-
-libstatic:
-	mkdir -p lib
-	g++ -c src/lib/mytimefunctions.cpp -o lib/libstatic.o
-
-libshared:
+all:
 	mkdir -p lib
 	g++ -shared -fPIC src/lib/mytimefunctions.cpp -o lib/libmytimefunctions.so
 
+clear:
+	rm -rf lib
+
 install: 
-	g++ -shared -fPIC src/lib/mytimefunctions.cpp -o /usr/lib/libmytimefunctions.so
+	cp lib/libmytimefunctions.so /usr/lib/
 	g++ src/main/main.cpp -o /usr/bin/mytestprogram -lmytimefunctions
 
 uninstall:
