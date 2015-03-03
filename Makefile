@@ -11,6 +11,11 @@ libstatic:
 
 libshared:
 	mkdir -p lib
-	g++ -fPIC -c src/lib/mytimefunctions.cpp -o lib/lib.o
-	g++ -shared lib/lib.o -o lib/libshared.so
-	rm lib/lib.o
+	g++ -shared -fPIC src/lib/mytimefunctions.cpp -o lib/libmytimefunctions.so
+
+install: 
+	g++ -shared -fPIC src/lib/mytimefunctions.cpp -o /usr/lib/libmytimefunctions.so
+	g++ src/main/main.cpp -o /usr/bin/mytestprogram -lmytimefunctions
+
+uninstall:
+	rm rf -f /usr/lib/libmytimefunctions.so /usr/bin/mytestprogram
