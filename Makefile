@@ -3,7 +3,7 @@ all:
 	g++ -shared -fPIC src/lib/mytimefunctions.cpp -o lib/libmytimefunctions.so
 	g++ src/main/main.cpp -o bin/mytestprogram -L lib -lmytimefunctions
 
-clear:
+clean:
 	rm -rf lib bin
 
 install: 
